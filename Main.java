@@ -25,7 +25,21 @@ public class Main {
 			System.out.println("Image loaded successfully.");
 
 			// Apply grayscale filter
+			System.out.println("Creating grayscale image...");
 			applyFilter(img, "grayscale.png", Main::toGrayscale);
+			System.out.println("Saved grayscale.png\n");
+
+			// Apply inverted filter
+			System.out.println("Creating inverted image...");
+			applyFilter(img, "inverted.png", Main::invert);
+			System.out.println("Saved inverted.png\n");
+
+			// Apply brighten filter
+			System.out.println("Creating brightened image...");
+			applyFilter(img, "brightened.png", Main::brighten);
+			System.out.println("Saved brightened.png\n");
+
+			System.out.println("All filters complete.\nProgram finished.");
 
 
 		} catch (Exception e) {
@@ -68,6 +82,18 @@ public class Main {
 	private static Color toGrayscale(Color pixel) {
 		float avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
 		return new Color(avg /255, avg/255, avg/255);
+	}
 
+	private static Color invert(Color pixel) {
+		return new Color (255 - pixel.getRed(), 255 - pixel.getGreen(), 255 - pixel.getBlue());
+	}
+
+	private static Color brighten(Color pixel) {
+		int amt = 40;
+		return new Color(
+			Math.min(255, pixel.getRed() + amt),
+			Math.min(255, pixel.getGreen() + amt),
+			Math.min(255, pixel.getBlue() + amt)
+		);
 	}
 }
